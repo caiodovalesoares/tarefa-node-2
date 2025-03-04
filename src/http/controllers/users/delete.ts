@@ -12,7 +12,6 @@ export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
     const { userId } = getParamsSchema.parse(request.params)
 
     try {
-        
         const prismaUsersRepository = new PrismaUsersRepository()
         const deleteUserUseCase = new DeleteUserUseCase(prismaUsersRepository)
         const user = await deleteUserUseCase.execute({
