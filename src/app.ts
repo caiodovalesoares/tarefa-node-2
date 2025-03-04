@@ -7,6 +7,7 @@ import fastifyCookie from "@fastify/cookie";
 import { env } from "./env";
 import fastifyCors from "@fastify/cors";
 import { commentRoutes } from "./http/controllers/comments/routes";
+import { likeRoutes } from "./http/controllers/likes/routes";
 
 export const app = fastify()
 
@@ -33,6 +34,7 @@ app.register(fastifyCookie)
 app.register(userRoutes)
 app.register(postRoutes)
 app.register(commentRoutes)
+app.register(likeRoutes)
 
 app.setErrorHandler((error, request, reply) => {
     if (error instanceof ZodError) {
