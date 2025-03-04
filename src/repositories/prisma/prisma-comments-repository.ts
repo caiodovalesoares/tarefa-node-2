@@ -2,6 +2,10 @@ import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
 export class PrismaCommentsRepository {
+    async getAll(): Promise<Comment[]> {
+        return await prisma.comment.findMany()
+    }
+    
    async create(data: Prisma.CommentUncheckedCreateInput): Promise<Comment> {
            try {
                const comment = await prisma.comment.create({

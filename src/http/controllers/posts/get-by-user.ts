@@ -8,16 +8,16 @@ export async function getPostsByUser(request: FastifyRequest, reply: FastifyRepl
         userId: z.string().uuid(),
     });
 
-    const { userId } = getParamsSchema.parse(request.params);
+    const { userId } = getParamsSchema.parse(request.params)
 
     try {
-        const prismaPostsRepository = new PrismaPostsRepository();
-        const getPostsByUserUseCase = new GetPostsByUserUseCase(prismaPostsRepository);
-        const posts = await getPostsByUserUseCase.execute({ userId });
+        const prismaPostsRepository = new PrismaPostsRepository()
+        const getPostsByUserUseCase = new GetPostsByUserUseCase(prismaPostsRepository)
+        const posts = await getPostsByUserUseCase.execute({ userId })
 
-        return reply.status(200).send(posts);
+        return reply.status(200).send(posts)
     } catch (err) {
-        console.error("Erro ao buscar posts por usuário:", err);
-        return reply.status(500).send({ message: "Erro interno no servidor" });
+        console.error("Erro ao buscar posts por usuário:", err)
+        return reply.status(500).send({ message: "Erro interno no servidor" })
     }
 }
