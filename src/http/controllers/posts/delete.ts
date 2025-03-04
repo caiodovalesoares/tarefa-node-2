@@ -12,7 +12,6 @@ export async function deletePost(request: FastifyRequest, reply: FastifyReply) {
     const { postId } = getParamsSchema.parse(request.params)
 
     try {
-        
         const prismaPostsRepository = new PrismaPostsRepository()
         const deletePostUseCase = new DeletePostUseCase(prismaPostsRepository)
         const post = await deletePostUseCase.execute({
