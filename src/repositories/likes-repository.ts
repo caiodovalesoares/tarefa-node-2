@@ -5,4 +5,6 @@ export interface LikesRepository {
     delete(id: string): Promise<Like | null>
     findByid(id: string): Promise<Like | null>
     findByUserId(userId: string): Promise<Like[]>
+    findByPostId(postId: string): Promise<Like[]>
+    findByCommentId(commentId: string): Promise<Like[]>
 }

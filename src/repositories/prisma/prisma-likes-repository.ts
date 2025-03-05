@@ -4,6 +4,18 @@ import { LikesRepository } from "../likes-repository";
 export class PrismaLikesRepository implements LikesRepository {
     private prisma = new PrismaClient()
 
+    async findByPostId(postId: string): Promise<Like[]> {
+        return await this.prisma.like.findMany({
+            where: { postId }
+        })
+    }
+
+    async findByCommentId(commentId: string): Promise<Like[]> {
+        return await this.prisma.like.findMany({
+            where: { commentId }
+        })
+    }
+
     async findByUserId(userId: string): Promise<Like[]> {
         return await this.prisma.like.findMany({
             where: { userId }
