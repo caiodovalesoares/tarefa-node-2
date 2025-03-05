@@ -3,6 +3,7 @@ import { create } from "./create";
 import { FastifyInstance } from "fastify";
 import { getAll } from "./get-all";
 import { deleteComment } from "./delete";
+import { update } from "./update";
 
 export function commentRoutes(app: FastifyInstance) {
     app.post('/comments', {onRequest: [verifyJWT]}, create)
@@ -10,4 +11,6 @@ export function commentRoutes(app: FastifyInstance) {
     app.get('/comments', getAll)
 
     app.delete('/comments/:commentId', {onRequest: [verifyJWT]}, deleteComment)
+
+    app.patch('/comments/:commentId', {onRequest: [verifyJWT]}, update)
 }

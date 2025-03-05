@@ -2,6 +2,16 @@ import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
 export class PrismaCommentsRepository {
+    async update(id: string, data: Prisma.CommentUpdateInput): Promise<Comment | null> {
+        const comment = await prisma.comment.update({ 
+            where: { id },
+            data: {
+                conteudo: data.conteudo
+            }
+        })
+        return comment
+    }
+
     async delete(id: string): Promise<Comment | null> {
         const comment = await prisma.comment.delete({
             where: {
