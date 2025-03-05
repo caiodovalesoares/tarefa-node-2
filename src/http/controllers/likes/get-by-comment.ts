@@ -1,6 +1,6 @@
 import { PrismaLikesRepository } from "@/repositories/prisma/prisma-likes-repository";
 import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found";
-import { GetLikeByCommentUseCase } from "@/use-cases/get-like-by-comment";
+import { GetLikeByCommentUseCase } from "@/use-cases/get-like-by-comment-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 

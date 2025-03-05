@@ -2,6 +2,22 @@ import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
 export class PrismaCommentsRepository {
+    async findByUserId(userId: string): Promise<Comment[]> {
+        return await prisma.comment.findMany({
+            where: {
+                userId
+            }
+        })
+    }
+
+    async findByPostId(postId: string): Promise<Comment[]> {
+        return await prisma.comment.findMany({
+            where: {
+                postId
+            }
+        })
+    }
+
     async findById(id: string): Promise<Comment | null> {
         return await prisma.comment.findUnique({
             where: {
