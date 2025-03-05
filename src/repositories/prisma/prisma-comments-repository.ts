@@ -2,6 +2,14 @@ import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
 export class PrismaCommentsRepository {
+    async findById(id: string): Promise<Comment | null> {
+        return await prisma.comment.findUnique({
+            where: {
+                id
+            }
+        })
+    }
+
     async update(id: string, data: Prisma.CommentUpdateInput): Promise<Comment | null> {
         const comment = await prisma.comment.update({ 
             where: { id },
