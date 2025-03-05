@@ -1,11 +1,11 @@
 Este projeto é uma aplicação backend desenvolvida em Node.js utilizando o framework Fastify. A aplicação implementa funcionalidades de autenticação, criação de posts, comentários e likes, permitindo que os usuários interajam com o conteúdo de maneira segura e eficiente, como em uma rede social.
 
 Principais Tecnologias Utilizadas:
-  Node.js: Plataforma de desenvolvimento backend.
-  Fastify: Framework web rápido e eficiente para Node.js.
-  Prisma: ORM (Object-Relational Mapping) para interagir com o banco de dados.
-  JWT (JSON Web Token): Para autenticação e autorização de usuários.
-  Zod: Biblioteca de validação de esquemas para garantir a integridade dos dados.
+- Node.js: Plataforma de desenvolvimento backend.
+- Fastify: Framework web rápido e eficiente para Node.js.
+- Prisma: ORM (Object-Relational Mapping) para interagir com o banco de dados.
+- JWT (JSON Web Token): Para autenticação e autorização de usuários.
+- Zod: Biblioteca de validação de esquemas para garantir a integridade dos dados.
   
 Funcionalidades Implementadas:
 
