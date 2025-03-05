@@ -6,7 +6,7 @@ import { z } from "zod";
 export async function getPostsByUser(request: FastifyRequest, reply: FastifyReply) {
     const getParamsSchema = z.object({
         userId: z.string().uuid(),
-    });
+    })
 
     const { userId } = getParamsSchema.parse(request.params)
 
