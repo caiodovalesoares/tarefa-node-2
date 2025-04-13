@@ -23,7 +23,8 @@
     "dotenv": "16.4.7",
     "fastify": "5.2.1",
     "jsonwebtoken": "9.0.2",
-    "tsup": "2.0.3",
+    "nodemailer": "6.10.1",
+    "tsup": "8.4.0",
     "tsx": "4.19.3",
     "typescript": "5.7.3",
     "zod": "3.24.2"
