@@ -14,4 +14,6 @@ export interface PostsRepository {
     delete(id: string): Promise<Post | null>
     update(id: string, data: PostUpdateInput): Promise<Post | null>
     findByUserId(userId: string): Promise<Post[] | null>
+    findUserByPostId(postId: string): Promise<Post | null>
+    findMostLikedPosts(): Promise<Post[] | null>
 }

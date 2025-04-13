@@ -3,6 +3,39 @@ import { Prisma, Post } from "@prisma/client";
 import { PostUpdateInput } from "../posts-repository";
 
 export class PrismaPostsRepository {
+
+    async findMostLikedPosts(limit: number = 10): Promise<(Post & { likesCount: number })[]> {
+        return await prisma.post.findMany({
+            include: {
+                _count: {
+                    select: { like: true },
+                },
+            },
+            orderBy: {
+                like: {
+                    _count: "desc",
+                },
+            },
+            take: limit,
+        }).then(posts =>
+            posts.map(post => ({
+                ...post,
+                likesCount: post._count.like,
+            }))
+        )
+    }
+
+    async findUserByPostId(postId: string): Promise<Post & { user: { email: string; nome: string } } | null> {
+        return prisma.post.findUnique({
+            where: { id: postId },
+            include: {
+                user: {
+                    select: { email: true, nome: true }
+                }
+            }
+        })
+    }
+
     async findByUserId(userId: string): Promise<Post[]> {
         return await prisma.post.findMany({
             where: { userId },
