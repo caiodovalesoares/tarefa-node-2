@@ -5,13 +5,14 @@ export interface PostUpdateInput {
     conteudo?: string
     data?: Date
     userId?: string
+    deleted_at?: Date | null
 }
 
 export interface PostsRepository {
     create(data: Prisma.PostUncheckedCreateInput): Promise<Post>
     findById(id: string): Promise<Post | null>
     getAll(): Promise<Post[]>
-    delete(id: string): Promise<Post | null>
+    softDelete(id: string): Promise<Post | null>
     update(id: string, data: PostUpdateInput): Promise<Post | null>
     findByUserId(userId: string): Promise<Post[] | null>
     findUserByPostId(postId: string): Promise<Post | null>

@@ -5,7 +5,8 @@ export class PrismaCommentsRepository {
     async findByUserId(userId: string): Promise<Comment[]> {
         return await prisma.comment.findMany({
             where: {
-                userId
+                userId,
+                deleted_at: null
             }
         })
     }
@@ -13,7 +14,8 @@ export class PrismaCommentsRepository {
     async findByPostId(postId: string): Promise<Comment[]> {
         return await prisma.comment.findMany({
             where: {
-                postId
+                postId,
+                deleted_at: null
             }
         })
     }
@@ -30,23 +32,31 @@ export class PrismaCommentsRepository {
         const comment = await prisma.comment.update({ 
             where: { id },
             data: {
-                conteudo: data.conteudo
+                conteudo: data.conteudo,
+                deleted_at: data.deleted_at
             }
         })
         return comment
     }
 
-    async delete(id: string): Promise<Comment | null> {
-        const comment = await prisma.comment.delete({
+    async softDelete(id: string): Promise<Comment | null> {
+        const comment = await prisma.comment.update({
             where: {
                 id
+            },
+            data: {
+                deleted_at: new Date()
             }
         })
         return comment
     }
 
     async getAll(): Promise<Comment[]> {
-        return await prisma.comment.findMany()
+        return await prisma.comment.findMany({
+            where: {
+                deleted_at: null
+            }
+        })
     }
 
    async create(data: Prisma.CommentUncheckedCreateInput): Promise<Comment> {

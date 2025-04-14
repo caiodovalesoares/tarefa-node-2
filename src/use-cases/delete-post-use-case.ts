@@ -14,7 +14,7 @@ export class DeletePostUseCase {
     constructor(private postsRepository: PostsRepository) {}
 
     async execute({ postId }: DeletePostUseCaseRequest): Promise<DeletePostUseCaseResponse> {
-       const post = await this.postsRepository.delete(postId)
+       const post = await this.postsRepository.softDelete(postId)
 
        if (!post) {
             throw new ResourceNotFoundError()

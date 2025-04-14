@@ -6,6 +6,9 @@ export class PrismaPostsRepository {
 
     async findMostLikedPosts(limit: number = 10): Promise<(Post & { likesCount: number })[]> {
         return await prisma.post.findMany({
+            where: {
+                deleted_at: null,
+            },
             include: {
                 _count: {
                     select: { like: true },
@@ -27,7 +30,10 @@ export class PrismaPostsRepository {
 
     async findUserByPostId(postId: string): Promise<Post & { user: { email: string; nome: string } } | null> {
         return prisma.post.findUnique({
-            where: { id: postId },
+            where: { 
+                id: postId,
+                deleted_at: null
+            },
             include: {
                 user: {
                     select: { email: true, nome: true }
@@ -38,7 +44,10 @@ export class PrismaPostsRepository {
 
     async findByUserId(userId: string): Promise<Post[]> {
         return await prisma.post.findMany({
-            where: { userId },
+            where: { 
+                userId,
+                deleted_at: null 
+            },
         })
     }
 
@@ -49,16 +58,20 @@ export class PrismaPostsRepository {
                     titulo: data.titulo,
                     conteudo: data.conteudo,
                     data: data.data,
-                    userId: data.userId
+                    userId: data.userId,
+                    deleted_at: data.deleted_at
             }
             })
             return post
         }
 
-    async delete(id: string): Promise<Post | null> {
-            const post = await prisma.post.delete({
+    async softDelete(id: string): Promise<Post | null> {
+            const post = await prisma.post.update({
                 where: {
                     id
+                },
+                data: {
+                    deleted_at: new Date()
                 }
             })
             return post
@@ -73,7 +86,11 @@ export class PrismaPostsRepository {
     }
 
     async getAll(): Promise<Post[]> {
-            return await prisma.post.findMany() 
+            return await prisma.post.findMany({
+                where: {
+                    deleted_at: null
+                },
+            }) 
         }
 
     async create(data: Prisma.PostUncheckedCreateInput): Promise<Post> {

@@ -2,7 +2,7 @@ import { create } from "./create";
 import { FastifyInstance } from "fastify";
 import { getAll } from "./get-all";
 import { get } from "./get";
-import { deletePost } from "./delete";
+import { deletePost } from "./soft-delete";
 import { update } from "./update";
 import { getPostsByUser } from "./get-by-user";
 import { verifyJWT } from "@/http/middlewares/verify-jwt";

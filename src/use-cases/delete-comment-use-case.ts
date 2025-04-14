@@ -14,7 +14,7 @@ export class DeleteCommentUseCase {
     constructor(private commentsRepository: CommentsRepository) {}
 
     async execute({ commentId }: DeleteCommentUseCaseRequest): Promise<DeleteCommentUseCaseResponse> {
-        const comment = await this.commentsRepository.delete(commentId)
+        const comment = await this.commentsRepository.softDelete(commentId)
 
         if (!comment) {
             throw new ResourceNotFoundError()
