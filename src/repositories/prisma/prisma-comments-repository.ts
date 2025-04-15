@@ -2,6 +2,19 @@ import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
 export class PrismaCommentsRepository {
+    async permanenteDelete(): Promise<void> {
+        const THIRTY_DAYS_AGO = new Date()
+        THIRTY_DAYS_AGO.setDate(THIRTY_DAYS_AGO.getDate() - 30)
+
+        await prisma.comment.deleteMany({
+            where: {
+                deleted_at: {
+                    lte: THIRTY_DAYS_AGO
+                }
+            }
+        })
+    }
+
     async findByUserId(userId: string): Promise<Comment[]> {
         return await prisma.comment.findMany({
             where: {

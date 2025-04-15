@@ -36,7 +36,7 @@ model Post {
   data     DateTime @default(now())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   comentarios Comment[]
 
@@ -52,12 +52,12 @@ model Comment {
   conteudo String
   data     DateTime @default(now())
 
-  Post   Post   @relation(fields: [postId], references: [id])
+  Post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
 
   like Like[]
 
-  User   User   @relation(fields: [userId], references: [id])
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   deleted_at DateTime?
@@ -69,13 +69,13 @@ model Like {
   id   String   @id @default(uuid())
   data DateTime @default(now())
 
-  Post   Post?   @relation(fields: [postId], references: [id])
+  Post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String?
 
-  Comment   Comment? @relation(fields: [commentId], references: [id])
+  Comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId String?
 
-  User   User   @relation(fields: [userId], references: [id])
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   @@map("likes")

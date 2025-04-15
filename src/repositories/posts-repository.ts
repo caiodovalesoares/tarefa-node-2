@@ -13,6 +13,7 @@ export interface PostsRepository {
     findById(id: string): Promise<Post | null>
     getAll(): Promise<Post[]>
     softDelete(id: string): Promise<Post | null>
+    permanentDelete(id: string): Promise<void>
     update(id: string, data: PostUpdateInput): Promise<Post | null>
     findByUserId(userId: string): Promise<Post[] | null>
     findUserByPostId(postId: string): Promise<Post | null>

@@ -3,6 +3,18 @@ import { Prisma, Post } from "@prisma/client";
 import { PostUpdateInput } from "../posts-repository";
 
 export class PrismaPostsRepository {
+    async permanenteDelete(): Promise<void> {
+        const THIRTY_DAYS_AGO = new Date()
+        THIRTY_DAYS_AGO.setDate(THIRTY_DAYS_AGO.getDate() - 30)
+
+        await prisma.post.deleteMany({
+            where: {
+                deleted_at: {
+                    lte: THIRTY_DAYS_AGO
+                }
+            }
+        })
+    }
 
     async findMostLikedPosts(limit: number = 10): Promise<(Post & { likesCount: number })[]> {
         return await prisma.post.findMany({
