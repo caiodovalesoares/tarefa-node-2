@@ -3,7 +3,31 @@ import { Prisma, Post } from "@prisma/client";
 import { PostUpdateInput } from "../posts-repository";
 
 export class PrismaPostsRepository {
-    async findMostRecentPosts(limit: number = 10): Promise<Post[]> {
+    async findMostCommentedPosts(limit: number = 5): Promise<Post[]> {
+        return await prisma.post.findMany({
+            where: {
+                deleted_at: null,
+            },
+            include: {
+                _count: {
+                    select: { comentarios: true },
+                },
+            },
+            orderBy: {
+                comentarios: {
+                    _count: "desc",
+                },
+            },
+            take: limit,
+        }).then(posts =>
+            posts.map(post => ({
+                ...post,
+                comentariosCount: post._count.comentarios,
+            }))
+        )
+    }
+
+    async findMostRecentPosts(limit: number = 5): Promise<Post[]> {
         return await prisma.post.findMany({
             where: {
                 deleted_at: null,

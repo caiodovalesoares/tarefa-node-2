@@ -20,4 +20,5 @@ export interface PostsRepository {
     findMostLikedPosts(): Promise<Post[] | null>
     findByKeyWord(): Promise<Post[] | null>
     findMostRecentPosts(): Promise<Post[] | null>
+    findMostCommentedPosts(): Promise<Post[] | null>
 }
