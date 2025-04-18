@@ -3,6 +3,21 @@ import { Prisma, Post } from "@prisma/client";
 import { PostUpdateInput } from "../posts-repository";
 
 export class PrismaPostsRepository {
+    async findByKeyWord(keyWord: string): Promise<Post[]> {
+        return await prisma.post.findMany({
+            where: {
+                deleted_at: null,
+                OR: [
+                    { titulo: { contains: keyWord, mode: "insensitive" } },
+                    { conteudo: { contains: keyWord, mode: "insensitive" } }
+                ]
+            },
+            orderBy: {
+                data: "desc"
+            }
+        })
+    }
+
     async permanentDelete(): Promise<void> {
         const THIRTY_DAYS_AGO = new Date()
         THIRTY_DAYS_AGO.setDate(THIRTY_DAYS_AGO.getDate() - 30)
