@@ -4,7 +4,7 @@ import { Post } from "@prisma/client";
 export class GetAllPostsUseCase {
     constructor(private postsRepository: PrismaPostsRepository) {}
 
-    async execute(): Promise<Post[]> {
-        return await this.postsRepository.getAll()
+    async execute(page: number, pageSize: number): Promise<Post[]> {
+        return await this.postsRepository.getAll(page, pageSize)
     }
 }

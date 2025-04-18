@@ -3,7 +3,7 @@ import { Prisma, Post } from "@prisma/client";
 import { PostUpdateInput } from "../posts-repository";
 
 export class PrismaPostsRepository {
-    async permanenteDelete(): Promise<void> {
+    async permanentDelete(): Promise<void> {
         const THIRTY_DAYS_AGO = new Date()
         THIRTY_DAYS_AGO.setDate(THIRTY_DAYS_AGO.getDate() - 30)
 
@@ -97,13 +97,21 @@ export class PrismaPostsRepository {
         })
     }
 
-    async getAll(): Promise<Post[]> {
-            return await prisma.post.findMany({
-                where: {
-                    deleted_at: null
-                },
-            }) 
-        }
+    async getAll(page: number, pageSize: number): Promise<Post[]> {
+        const skip = (page - 1) * pageSize
+        const take = pageSize
+
+        return await prisma.post.findMany({
+            where: {
+                deleted_at: null
+            },
+            skip,
+            take,
+            orderBy: {
+                data: "desc"
+            }
+        }) 
+    }
 
     async create(data: Prisma.PostUncheckedCreateInput): Promise<Post> {
         try {

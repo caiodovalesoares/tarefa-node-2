@@ -4,7 +4,7 @@ import { Comment } from "@prisma/client";
 export class GetAllCommentsUseCase {
     constructor(private commentsRepository: PrismaCommentsRepository) {}
 
-    async execute(): Promise<Comment[]> {
-        return await this.commentsRepository.getAll()
+    async execute(page: number, pageSize: number): Promise<Comment[]> {
+        return await this.commentsRepository.getAll(page, pageSize)
     }
 }

@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
 export class PrismaCommentsRepository {
-    async permanenteDelete(): Promise<void> {
+    async permanentDelete(): Promise<void> {
         const THIRTY_DAYS_AGO = new Date()
         THIRTY_DAYS_AGO.setDate(THIRTY_DAYS_AGO.getDate() - 30)
 
@@ -64,10 +64,18 @@ export class PrismaCommentsRepository {
         return comment
     }
 
-    async getAll(): Promise<Comment[]> {
+    async getAll(page: number, pageSize: number): Promise<Comment[]> {
+        const skip = (page - 1) * pageSize
+        const take = pageSize
+
         return await prisma.comment.findMany({
             where: {
                 deleted_at: null
+            },
+            skip,
+            take,
+            orderBy: {
+                data: "desc"
             }
         })
     }

@@ -8,8 +8,8 @@ export async function cleanDeletedItems() {
 
     console.log('Iniciando limpeza de itens deletados...')
 
-    await prismaCommentsRepository.permanenteDelete()
-    await prismaPostsRepository.permanenteDelete()
+    await prismaCommentsRepository.permanentDelete()
+    await prismaPostsRepository.permanentDelete()
 
     console.log('Itens removidos permanentemente!')
 
