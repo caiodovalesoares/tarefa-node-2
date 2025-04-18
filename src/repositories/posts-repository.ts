@@ -19,4 +19,5 @@ export interface PostsRepository {
     findUserByPostId(postId: string): Promise<Post | null>
     findMostLikedPosts(): Promise<Post[] | null>
     findByKeyWord(): Promise<Post[] | null>
+    findMostRecentPosts(): Promise<Post[] | null>
 }

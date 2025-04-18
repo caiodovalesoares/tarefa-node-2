@@ -8,6 +8,7 @@ import { getPostsByUser } from "./get-by-user";
 import { verifyJWT } from "@/http/middlewares/verify-jwt";
 import { getPostsByKeyWord } from "./get-by-key-word";
 import { getMostLikedPosts } from "./get-most-liked";
+import { getMostRecentPosts } from "./get-most-recent";
 
 export function postRoutes(app: FastifyInstance) {
     app.post('/posts', {onRequest: [verifyJWT]} , create)
@@ -17,6 +18,7 @@ export function postRoutes(app: FastifyInstance) {
     app.get('/users/:userId/posts', getPostsByUser)
     app.get('/posts/search', getPostsByKeyWord)
     app.get('/posts/likes', getMostLikedPosts)
+    app.get('/posts/recent', getMostRecentPosts)
 
     app.delete('/posts/:postId', {onRequest: [verifyJWT]}, deletePost)
 
