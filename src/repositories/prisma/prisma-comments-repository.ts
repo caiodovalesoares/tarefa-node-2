@@ -1,6 +1,10 @@
 import { prisma } from "@/lib/prisma"
 import { Prisma, Comment } from "@prisma/client"
 
+export interface CommentsRepository {
+    getAll(page: number, pageSize: number): Promise<{ userId: string; id: string; conteudo: string; data: Date; postId: string; deleted_at: Date | null; }[]>;
+}
+
 export class PrismaCommentsRepository {
     async permanentDelete(): Promise<void> {
         const THIRTY_DAYS_AGO = new Date()
@@ -64,7 +68,7 @@ export class PrismaCommentsRepository {
         return comment
     }
 
-    async getAll(page: number, pageSize: number): Promise<Comment[]> {
+    async getAll(page: number, pageSize: number): Promise<{ userId: string; id: string; conteudo: string; data: Date; postId: string; deleted_at: Date | null; }[]> {
         const skip = (page - 1) * pageSize
         const take = pageSize
 

@@ -12,7 +12,7 @@ interface UpdateCommentUseCaseResponse {
 }
 
 export class UpdateCommentUseCase {
-    constructor(private commentsRepository: CommentsRepository) {}
+    constructor(private commentsRepository: any) {}
 
     async execute({ commentId, conteudo }: UpdateCommentUseCaseRequest): Promise<UpdateCommentUseCaseResponse> {
         const comment = await this.commentsRepository.update(commentId, { conteudo })

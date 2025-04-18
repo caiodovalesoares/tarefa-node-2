@@ -11,7 +11,7 @@ interface DeleteCommentUseCaseResponse {
 }
 
 export class DeleteCommentUseCase {
-    constructor(private commentsRepository: CommentsRepository) {}
+    constructor(private commentsRepository: any) {}
 
     async execute({ commentId }: DeleteCommentUseCaseRequest): Promise<DeleteCommentUseCaseResponse> {
         const comment = await this.commentsRepository.softDelete(commentId)

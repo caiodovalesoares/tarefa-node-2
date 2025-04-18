@@ -7,7 +7,7 @@ interface GetCommentUseCaseRequest {
 }
 
 export class GetCommentUseCase {
-    constructor(private commentsRepository: CommentsRepository) {}
+    constructor(private commentsRepository: any) {}
 
     async execute({ commentId }: GetCommentUseCaseRequest): Promise<Comment | null> {
         const comment = await this.commentsRepository.findById(commentId)

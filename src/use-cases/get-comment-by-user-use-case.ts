@@ -6,7 +6,7 @@ interface GetCommentsByUserRequest {
 }
 
 export class GetCommentsByUserUseCase {
-    constructor(private commentsRepository: CommentsRepository) {}
+    constructor(private commentsRepository: any) {}
 
     async execute({ userId }: GetCommentsByUserRequest): Promise<Comment[]> {
         return await this.commentsRepository.findByUserId(userId)
