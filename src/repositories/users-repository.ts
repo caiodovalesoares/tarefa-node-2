@@ -14,4 +14,5 @@ export interface UsersRepository {
     delete(id: string): Promise<User | null>
     update(id: string, data: UserUpdateInput): Promise<User | null>
     getAll(): Promise<User[]>
+    uploadImage(id: string, data: UserUpdateInput): Promise<User | null>
 }

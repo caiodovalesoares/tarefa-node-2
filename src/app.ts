@@ -8,8 +8,11 @@ import { env } from "./env";
 import fastifyCors from "@fastify/cors";
 import { commentRoutes } from "./http/controllers/comments/routes";
 import { likeRoutes } from "./http/controllers/likes/routes";
+import fastifyMultipart from "@fastify/multipart";
 
 export const app = fastify()
+
+app.register(fastifyMultipart)
 
 app.register(fastifyCors, {
     origin: true,
@@ -37,6 +40,9 @@ app.register(commentRoutes)
 app.register(likeRoutes)
 
 app.setErrorHandler((error, request, reply) => {
+    if (error) {
+        console.log(error)
+    }
     if (error instanceof ZodError) {
         return reply.status(400).send({ message: 'Erro de validação', issues: error.format()})
     }

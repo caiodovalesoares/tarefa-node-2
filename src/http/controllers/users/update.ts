@@ -12,13 +12,12 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
     const updateBodySchema = z.object({
         nome: z.string().optional(),
         email: z.string().email().optional(),
-        senha: z.string().min(6).optional(),
-        foto: z.string().url().optional()
+        senha: z.string().min(6).optional()
     })
 
     const { userId } = updateParamsSchema.parse(request.params)
 
-    const { nome, email, senha, foto } = updateBodySchema.parse(request.body)
+    const { nome, email, senha } = updateBodySchema.parse(request.body)
 
     try {
         const prismaUsersRepository = new PrismaUsersRepository()
@@ -28,8 +27,7 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
             data: {
                 nome,
                 email,
-                senha,
-                foto
+                senha
             }
         })
 
